@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <title>Add New Song</title>
+</head>
+<body style="background-color: white;">
+    
+    <div class="container mt-4">
+        <h1 class="text-center">Add New Song</h1>
+        <form action="/song" method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label class="col-form-label-lg">Song Title</label>
+                <input type="text" class="form-control form-control-lg" name="song[title]" placeholder="song title" required>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label class="col-form-label-lg">Lyrics</label>
+                    <textarea rows="7" class="form-control form-control-lg" name="song[lyrics]" placeholder="lyrics"  required></textarea>
+                </div>
+
+                <div class="col-6">
+                    <div class="row">
+                    
+                        <div class="col-12">
+                            <label class="col-form-label-lg">Track No.</label>
+                            <input type="text" class="form-control form-control-lg" name="song[track]" placeholder="track no.">
+                        </div>
+    
+                        <div class="col-12">
+                            <label class="col-form-label-lg">View</label>
+                            <input type="text" class="form-control form-control-lg" name="song[view]" placeholder="view">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="col-form-label-lg">Artist</label>
+                            <select name="song[artist.id]" class="form-select form-select-lg" id="form-select" required onchange="myfunction(this)">
+                                <option disabled selected value> -- Select An Artist -- </option>
+                            <% artist.forEach(function(artist) { %> 
+                                <option value="<%= artist._id %>" id="<%= artist.name %>"><%= artist.name %></option> 
+                            <% }) %>
+                            </select>
+            
+                            <input type="text" name="song[artist.name]" id="artist-name" class="display-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label class="col-form-label-lg">Image</label>
+                        <input type="file" class="form-control form-control-lg" name="image" accept='image/*' required>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label class="col-form-label-lg">Audio File</label>
+                        <input type="file" class="form-control form-control-lg" name="audio" accept='audio/*' required>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="col-12 text-center">
+                        <label class="col-form-label-lg mb-2" style="padding-top: 0px;">Music Tag</label>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-1"></div>
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Pop" id="Pop" name="song[genre]">
+                            <label class="form-check-label" for="Pop">
+                              Pop
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Rock" id="Rock" name="song[genre]">
+                            <label class="form-check-label" for="Rock">
+                              Rock
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Hip-Hop" id="Hip-Hop" name="song[genre]">
+                            <label class="form-check-label" for="Hip-Hop">
+                              Hip-Hop
+                            </label>
+                        </div>
+
+                        <div class="form-check col-2 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Latin" id="Latin" name="song[genre]">
+                            <label class="form-check-label" for="Latin">
+                              Latin
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-1"></div>
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="EDM" id="EDM" name="song[genre]">
+                            <label class="form-check-label" for="EDM">
+                              EDM
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="R&B" id="R&B" name="song[genre]">
+                            <label class="form-check-label" for="R&B">
+                              R&B
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Country" id="Country" name="song[genre]">
+                            <label class="form-check-label" for="Country">
+                              Country
+                            </label>
+                        </div>
+
+                        <div class="form-check col-2 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Folk" id="Folk" name="song[genre]">
+                            <label class="form-check-label" for="Folk">
+                              Folk
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-1"></div>
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Classical" id="Classical" name="song[genre]">
+                            <label class="form-check-label" for="Classical">
+                              Classical
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Jazz" id="Jazz" name="song[genre]">
+                            <label class="form-check-label" for="Jazz">
+                              Jazz
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Metal" id="Metal" name="song[genre]">
+                            <label class="form-check-label" for="Metal">
+                              Metal
+                            </label>
+                        </div>
+
+                        <div class="form-check col-2 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="EL" id="EL" name="song[genre]">
+                            <label class="form-check-label" for="EL">
+                              EL
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="New-Age" id="New-Age" name="song[genre]">
+                            <label class="form-check-label" for="New-Age">
+                              New-Age
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Blues" id="Blues" name="song[genre]">
+                            <label class="form-check-label" for="Blues">
+                              Blues
+                            </label>
+                        </div>
+
+                        <div class="form-check col-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="World" id="World" name="song[genre]">
+                            <label class="form-check-label" for="World">
+                              World
+                            </label>
+                        </div>
+
+                        <div class="form-check col-2 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" value="Vocal" id="Vocal" name="song[genre]">
+                            <label class="form-check-label" for="Vocal">
+                                Vocal
+                            </label>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-green rounded-pill mt-3">Add Song</button>
+            </div>
+            
+        </form>
+    </div>
+    
+</body>
+</html>
+
+<script>
+    function myfunction(sel) {
+        var x = sel.options[sel.selectedIndex].text
+        document.getElementById("artist-name").value = x;
+    }
+  
+</script>

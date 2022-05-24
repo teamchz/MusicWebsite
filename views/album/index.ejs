@@ -1,0 +1,27 @@
+<%- include("../partials/header.ejs") %>
+
+<section>
+    <div class="container mt-5">
+        <h2>อัลบั้ม</h2>
+
+        <div class="text-center d-flex flex-rw">
+
+            <% album.forEach(function(album) { %>
+
+                <div class="card me-3 ms-3 mt-2 mb-3">
+                    <a href="/album/<%= album._id %>">
+                        <img src="<%= album.image %> " alt="song-cover" width="80%" class="m-auto mt-4 mb-3">
+                    </a>
+                    <a href="/album/<%= album._id %>" class="text-center mb-0 h4 text-decoration-none text-dark"><%= album.albumTitle %></a>
+                    <a href="/artist/<%= album.artist.id %> " class="text-secondary h5 text-decoration-none">
+                        <p class="hover-underline mb-0"><%= album.artist.name %></p> 
+                    </a>
+                </div>
+
+            <% })  %>
+        </div>
+    </div>
+</section>
+
+
+<%- include("../partials/footer.ejs") %>

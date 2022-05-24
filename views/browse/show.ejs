@@ -1,0 +1,50 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container">
+    <h1 class="mt-5 mb-5">เพลง</h1>
+
+    <% song.forEach(function(song, index) { %> 
+        <div class="mb-2" style= " background: #CCD2E4; ">
+            <div class="row">
+                <div class="col-5 col-3 d-flex align-items-center">
+                    <p class="d-inline-block h5 ms-5 mb-0"><%= index + 1 %> &nbsp&nbsp&nbsp </p>
+                    <img src="<%= song.image %> " alt="song-cover" height="50px" width="50px" class="mt-2 ms-2 mb-2 me-3">
+                    <p class="d-inline-block h5 mb-0 hover-underline" >
+                        <a href="/song/<%= song._id %>" class="text-decoration-none text-dark"><%= song.title %></a> 
+                    </p>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <p class="h5 mb-0 hover-underline">
+                        <a href="/artist/<%= song.artist.id %>" class="text-decoration-none text-dark"><%= song.artist.name %></a>
+                    </p>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <p class="h5 mb-0 "><%= song.view %> </p>
+                </div>
+                <div class="col-1 d-flex align-items-center">
+                    <p class="h5 mb-0 me-3">3:12 </p>
+                </div>
+            </div>
+        </div>
+    <% }) %> 
+
+    <div class="container mt-5">
+        <h2>ศิลปิน</h2>
+
+        <div class="text-center d-flex flex-rw">
+
+            <% artist.forEach(function(artist) { %>
+
+                <div class="card me-3 ms-3 mt-2">
+                    <img src="<%= artist.profileImage %> " alt="song-cover" width="80%" class="m-auto mt-4 mb-3 rounded-circle">
+                    <a href="/artist/<%= artist._id %>" class="text-center mb-0 h4 text-decoration-none text-dark"><%= artist.name %></a>
+                    <h5 class="text-secondary">ศิลปิน</h5>
+                </div>
+
+            <% })  %>
+        </div>
+    </div>
+</div>
+
+
+<%- include("../partials/footer.ejs") %>

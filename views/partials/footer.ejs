@@ -1,0 +1,239 @@
+            <div class="h-10">
+
+            </div>
+        </main>
+        <div class="music-player fixed-bottom">
+            <div class="row">
+                <div class="col-1">
+
+                </div>
+
+                <div class="col-3 d-flex align-items-center mt-1">
+                    <button onclick="previous_song()" id="pre"><i class="fa fa-lg fa-step-backward" aria-hidden="true"></i></button>
+                    <button onclick="justplay()" id="play" class="song-play"><i class="fa fa-lg fa-play" aria-hidden="true"></i></button>
+                    <button onclick="next_song()" id="next"><i class="fa fa-lg fa-step-forward" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="col-4">
+                    <div class="d-flex justify-content-between">
+                        <p class="mt-2 mb-0 text-start" style="font-size: 12px;">00:00</p>
+                        <p class="mt-1 mb-0 text-start" id="title" style="font-size: 14px;">Song Name</p>
+                        <p class="mt-2 mb-0 text-end" style="font-size: 12px;">00:00</p>
+                    </div>
+                    
+                    <div class="duration">
+                        <input type="range" min="0" max="100" value="0" id="duration_slider" onchange="change_duration()">
+                     </div>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2">
+                    <div class="volume">
+                        <p id="volume_show" class="display-none">100</p>
+                        <i class="fa fa-volume-up mt-4" aria-hidden="true" onclick="mute_sound()" id="volume_icon"></i>
+                        <input type="range" min="0" max="100" value="100" onchange="volume_change()" id="volume">  
+                     </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="display-none">
+            <p id="present">1</p>
+        </div>
+
+        <script>
+
+let previous = document.querySelector('#pre');
+let play = document.querySelectorAll('.song-play');
+let next = document.querySelector('#next');
+let title = document.querySelector('#title');
+let recent_volume= document.querySelector('#volume');
+let volume_show = document.querySelector('#volume_show');
+let slider = document.querySelector('#duration_slider');
+let show_duration = document.querySelector('#show_duration');
+let track_image = document.querySelector('#track_image');
+let auto_play = document.querySelector('#auto');
+let present = document.querySelector('#present');
+let total = document.querySelector('#total');
+let artist = document.querySelector('#artist');
+
+if (document.querySelector('.song-content') == null) {
+
+} 
+if (document.querySelector('.song-content') != null) {
+    var song_path = document.querySelector('.song-content').innerHTML ;
+
+}
+
+if (document.querySelector('.song-title') != null) {
+    var song_title = document.querySelector('.song-title').innerHTML;
+}
+
+if (document.querySelector('.song-title') == null) {
+
+}
+
+let timer;
+let autoplay = 1;
+
+let index_no = 0;
+let Playing_song = false;
+
+//create a audio Element
+let track = document.createElement('audio');
+
+
+//All songs list
+let All_song = [
+   {
+     name: song_title,
+     path: song_path,
+     img: "img/img1.jpg",
+     singer: "1"
+   }
+];
+
+if (typeof All_song_playlist !== 'undefined') {
+    All_song = All_song_playlist
+}
+
+// All functions
+
+
+// function load the track
+function load_track(index_no){
+	clearInterval(timer);
+	reset_slider();
+
+	track.src = All_song[index_no].path;
+	title.innerHTML = All_song[index_no].name;	
+	// track_image.src = All_song[index_no].img;
+    // artist.innerHTML = All_song[index_no].singer;
+    track.load();
+
+	timer = setInterval(range_slider ,1000);
+	// total.innerHTML = All_song.length;
+	present.innerHTML = index_no + 1;
+}
+
+load_track(index_no);
+
+
+//mute sound function
+function mute_sound(){
+	track.volume = 0;
+	volume.value = 0;
+	volume_show.innerHTML = 0;
+}
+
+
+// checking.. the song is playing or not
+ function justplay(){
+ 	if(Playing_song==false){
+ 		playsong();
+
+ 	}else{
+ 		pausesong();
+ 	}
+ }
+
+
+// reset song slider
+ function reset_slider(){
+ 	slider.value = 0;
+ }
+
+// play song
+function playsong(){
+  track.play();
+  Playing_song = true;
+  play[0].innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
+  play[1].innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
+}
+
+//pause song
+function pausesong(){
+	track.pause();
+	Playing_song = false;
+	play[0].innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+    play[1].innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+}
+
+
+// next song
+function next_song(){
+	if(index_no < All_song.length - 1){
+		index_no += 1;
+		load_track(index_no);
+		playsong();
+	}else{
+		index_no = 0;
+		load_track(index_no);
+		playsong();
+
+	}
+}
+
+
+// previous song
+function previous_song(){
+	if(index_no > 0){
+		index_no -= 1;
+		load_track(index_no);
+		playsong();
+
+	}else{
+		index_no = All_song.length;
+		load_track(index_no);
+		playsong();
+	}
+}
+
+
+// change volume
+function volume_change(){
+	volume_show.innerHTML = recent_volume.value;
+	track.volume = recent_volume.value / 100;
+}
+
+// change slider position 
+function change_duration(){
+	slider_position = track.duration * (slider.value / 100);
+	track.currentTime = slider_position;
+}
+
+// autoplay function
+function autoplay_switch(){
+	if (autoplay==1){
+       autoplay = 0;
+       auto_play.style.background = "rgba(255,255,255,0.2)";
+	}else{
+       autoplay = 1;
+       auto_play.style.background = "#FF8A65";
+	}
+}
+
+
+function range_slider(){
+	let position = 0;
+        
+        // update slider position
+		if(!isNaN(track.duration)){
+		   position = track.currentTime * (100 / track.duration);
+		   slider.value =  position;
+	      }
+
+       
+       // function will run when the song is over
+       if(track.ended){
+       	 play.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+           if(autoplay==1){
+		       index_no += 1;
+		       load_track(index_no);
+		       playsong();
+           }
+	    }
+     }
+        </script>
+    </body>
+</html>

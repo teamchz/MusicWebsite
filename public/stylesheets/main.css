@@ -1,0 +1,264 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #E5E7F2;
+}
+
+.index-image{
+    object-fit: cover;
+}
+
+.bg-purple {
+    background-color: #7C81A7;
+}
+
+.sidebar {
+    background-color: #AAADC8;
+
+}
+
+.btn-purple {
+    background-color: #433767;
+    width: 100px;
+}
+
+.btn-green {
+    background-color: rgb(14, 233, 107);
+    width: 150px;
+    height: 50px;
+}
+
+.btn-save {
+    background-color: rgb(14, 233, 107);
+    width: 110px;
+    height: 45px;
+}
+
+.btn-cancle {
+    border: gray 1px solid;
+    width: 110px;
+    height: 45px;
+}
+
+.btn-logout {
+    text-align: center;
+    padding-top: 10px;
+    background-color: white;
+    border: 1px solid gray;
+    width: 150px;
+    height: 50px;
+}
+
+.btn-facebook {
+    height: 50px;
+    background-color: rgb(59, 89, 152);
+}
+
+.btn-google {
+    height: 50px;
+    background-color: white;
+    border: solid 1px gray;
+}
+
+.nav-item .btn-light {
+    width: 100px;
+}
+
+#register-bg {
+    background-image: url('../images/register.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50%;
+    position: absolute;
+    left: 0px;
+    height: 100%;
+}
+
+#register-text-h1 {
+    position: absolute;
+    width: 670px;
+    height: 84px;
+    left: 29px;
+    top: 290px;
+    font-size: 66px;
+    line-height: 84px;
+
+    color: #FFFFFF;
+}
+
+#register-text-h2 {
+    position: absolute;
+    width: 582px;
+    height: 57px;
+    left: 29px;
+    top: 390px;
+    font-size: 33px;
+    line-height: 42px;
+
+    color: #B8BABB;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.vl {
+    border-left: 6px solid rgba(0, 0, 0, 0);
+    height: 10px;
+    left: 50%;
+    
+}
+
+.container-sm {
+    width: 35%;
+}
+
+.container-md {
+    width: 65%;
+}
+
+.display-none {
+    display: none;
+}
+
+.card {
+    width: 220px;
+    height: 300px;
+    min-width: 220px;
+    background-color: #DEDFE4;
+    border-radius: 25px;
+    border: none;
+    transition: 0.3s ease-out;
+}
+
+#card:hover + #play {
+    display: none;
+}
+
+.card:hover {
+    background-color: #C4C4C4;
+}
+
+.profile-banner {
+    height: 225px;
+    background: linear-gradient(360deg, #C1CBEC, rgba(223, 228, 235));
+}
+
+.profile-card {
+    background-color: white;
+    width: 550px;
+    height: 400px;
+}
+
+.profile-desc {
+    background-color: white;
+    padding: 50px;
+    border-radius: 25px;
+    border: none;
+}
+
+.playlist-add {
+    background-color: #C4C4C4; 
+    width: 200px;
+    height: 200px;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+}
+
+.playlist-add:hover {
+    background-color: #b3b4b9;
+}
+
+.music-player {
+    z-index: 100;
+    background-color: white;
+    min-height: 60px;
+    height: auto;
+}
+
+.music-icon {
+    position: absolute;
+    top: 28%;
+    left: 35%;
+    cursor: pointer;
+}
+
+.h-10 {
+    height: 60px!important;
+}
+
+.flex-rw {
+    flex-flow: row wrap;
+}
+
+.lyrics {
+    background-color: #d2d7e7;
+}
+
+.lyrics-line {
+    border-left: 1px solid #837FA8;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.lyrics-sub {
+    background-color: #E5E7F2;
+    max-height: 500px;
+    border-radius: 10px;
+    margin-top: 5%;
+}
+
+.form-check-input {
+    margin-right: 5%;
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.hover-underline:hover {
+    text-decoration: underline;
+}
+
+#pre, #play, #next  {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: 0.5s;
+    background-color: white;
+}
+
+#play {
+    border: 1px solid black;
+}
+
+#duration_slider {
+    height: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-song, .btn-song-save, .btn-song-edit, .btn-song-del {
+    background-color: rgb(14, 233, 107);
+    width: 100px;
+    height: 40px;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border: none;
+}
+
+.btn-song-save {
+    background-color: white;
+}
+
+.btn-song-edit {
+    background-color: #7070db;
+}
+
+.btn-song-del {
+    background-color: #d22d2d;
+}

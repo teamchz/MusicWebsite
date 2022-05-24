@@ -1,0 +1,95 @@
+<%- include("../partials/header.ejs") %>
+
+<section>
+    <div class="container-fluid mb-5">
+        <div class="d-flex">
+            
+            <img src="<%= artist.bannerImage %>" alt="fav" height="180px" class="img-fluid w-100 h-100">
+            <h5 class="position-absolute" style="margin-top: 3%; margin-left: 5%;">ศิลปิน</h5>
+            <h1 class="fw-bold display-1 position-absolute" style="margin-top: 4%; margin-left: 5%;"><%= artist.name %> </h1>
+            
+            <% if (currentUser &&  currentUser.isAdmin) { %>
+            <button class="position-absolute text-center btn-song-edit rounded-pill fw-bold h5" style="right: 40%; top: 20%;"
+                onclick="location.href='/artist/<%= artist._id %>/edit'">
+                    แก้ไข 
+            </button>
+
+            <form id= 'delete-form' action = "/artist/<%= artist._id %>?_method=DELETE" method ="POST">
+                <button class="position-absolute text-center rounded-pill fw-bold h5 btn-song-del" style="right: 33%; top: 20%;">
+                    ลบ
+                </button>
+            </form>
+            <% } %> 
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h3 class="fw-bold">ผลงานยอดนิยม</h3>
+        <div class="d-flex" style="padding: 50px; padding-bottom: 0px; padding-top: 30px;">
+            <h5 class="col-5 text-secondary">ชื่อเพลง</h5>
+            <h5 class="col-3 text-secondary">ศิลปิน</h5>
+            <h5 class="col-3 text-secondary me-2">จำนวนการฟัง</h5>
+            <h5 class="col-1 text-secondary ms-5">เวลา</h5>
+        </div>
+
+        <div class="container-fluid"><hr></div>
+
+        <article>
+            <% song.forEach(function(song, index) { %> 
+                <div class="mb-2" style= " background: #CCD2E4; ">
+                    <div class="row">
+                        <div class="col-5 col-3 d-flex align-items-center">
+                            <p class="d-inline-block h5 ms-5 mb-0"><%= index + 1 %> &nbsp&nbsp&nbsp </p>
+                            <img src="<%= song.image %> " alt="song-cover" height="50px" width="50px" class="mt-2 ms-2 mb-2 me-3">
+                            <p class="d-inline-block h5 mb-0 hover-underline" >
+                                <a href="/song/<%= song._id %>" class="text-decoration-none text-dark"><%= song.title %></a> 
+                            </p>
+                        </div>
+                        <div class="col-3 d-flex align-items-center">
+                            <p class="h5 mb-0"><%= song.artist.name %> </p>
+                        </div>
+                        <div class="col-3 d-flex align-items-center">
+                            <p class="h5 mb-0"><%= song.view %> </p>
+                        </div>
+                        <div class="col-1 d-flex align-items-center">
+                            <p class="h5 mb-0"> 3:12 </p>
+                        </div>
+                    </div>
+                </div>
+            
+            <% }) %> 
+        </article>
+
+        <article>
+            <h3 class="fw-bold mt-5">อัลบั้ม</h3>
+            <div class="text-center flex-rw d-flex mb-5">
+
+                <% album.forEach(function(album) { %>
+    
+                    <div class="card me-3 ms-3 mt-2">
+                        <a href="/album/<%= album._id %>">
+                            <img src="<%= album.image %> " alt="song-cover" width="80%" class="m-auto mt-4 mb-3">
+                        </a>
+                        <a href="/album/<%= album._id %>" class="text-center mb-0 h4 text-decoration-none text-dark"><%= album.albumTitle %></a>
+                        <a href="/artist/<%= album.artist.id %> " class="text-secondary h5 text-decoration-none">
+                            <p class="hover-underline mb-0"><%= album.artist.name %></p> 
+                        </a>
+                    </div>
+    
+                <% })  %>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section>
+    <div class="container mt-5 mb-5">
+        <h3>เกี่ยวกับ <%= artist.name %> </h3>
+        <p><%= artist.description %> </p>
+    </div>
+    
+</section>
+
+<%- include("../partials/footer.ejs") %>

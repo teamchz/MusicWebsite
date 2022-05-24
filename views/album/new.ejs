@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+	<link rel="stylesheet" href="/multiselect-08/css/style.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <title>Add New Artist</title>
+</head>
+<body style="background-color: white;">
+    
+    <div class="container mt-4">
+        <h1 class="text-center">Add New Album</h1>
+        <form action="/album" method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label class="col-form-label-lg">Album Name</label>
+                <input type="text" class="form-control form-control-lg" name="album[albumTitle]" placeholder="Album Name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="col-form-label-lg">Album Image</label>
+                <input type="file" class="form-control form-control-lg" name="image" accept='image/*' required> 
+            </div>
+
+
+            
+            <label class="col-form-label-lg">Add Songs</label>
+            <div class="row justify-content-center">
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <select data-placeholder="Add Songs To Album" class="chosen-select" multiple tabindex="6" name="album[song]">
+                        <option value=""></option>
+                        
+                        <% artist.forEach(function(artist) { %> 
+                            <optgroup label="<%= artist.name %>">
+                            <% song.forEach(function(song) { %> 
+                                <% if (song.artist.name == artist.name) { %>  
+                                <option value="<%= song._id %>"><%= song.title %> </option>
+                                <% } %> 
+                            <% }) %> 
+                            </optgroup>
+                        <% }) %> 
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label class="col-form-label-lg">Select Artist</label>
+                    <select name="album[artist.id]" class="form-select form-select-lg" id="form-select" required onchange="myfunction(this)">
+                        <option disabled selected value> -- Select An Artist -- </option>
+                    <% artist.forEach(function(artist) { %> 
+                        <option value="<%= artist._id %>" id="<%= artist.name %>"><%= artist.name %></option> 
+                    <% }) %>
+                    </select>
+    
+                    <input type="text" name="album[artist.name]" id="artist-name" class="display-none">
+                </div>
+            </div>
+           
+            <div class="text-center">
+                <button type="submit" class="btn btn-green rounded-pill mt-5">Add Album</button>
+            </div>
+            
+        </form>
+    </div>
+
+
+    <script src="/multiselect-08/js/jquery.min.js"></script>
+    <script src="/multiselect-08/js/popper.js"></script>
+    <script src="/multiselect-08/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+    <script src="/multiselect-08/js/main.js"></script>
+
+<script>
+    function myfunction(sel) {
+        var x = sel.options[sel.selectedIndex].text
+        document.getElementById("artist-name").value = x;
+    }
+</script>
+</body>
+</html>

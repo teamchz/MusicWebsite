@@ -1,0 +1,138 @@
+<%- include("../partials/header.ejs") %>
+
+<script>
+    All_song_playlist.push({name: '<%= song.title %>', path: '<%= song.content %>', img: "img/img1.jpg", singer: "1"})
+</script>
+
+<section>
+    <div class="container-fluid profile-banner mb-5">
+        <div class="d-flex align-items-end ms-5">
+            <div class="col-2 justify-content-center">
+                <img src="..<%= song.image %> " alt="fav" height="180px" class="m-4">
+            </div>
+            <div class="col-10 mb-5">
+                <p class="mb-0 h5">ฟังเพลง</p>
+                <h1 class="fw-bold display-3 d-inline-block"><%= song.title %></h1>
+                <button class="ms-5 d-inline-block text-center btn-song rounded-pill fw-bold h5 song-play" onclick="justplay()">
+                    <i class="fa-solid fa-circle-play"></i>
+                    เล่น
+                </button>
+                <button class="ms-2 d-inline-block text-center btn-song-save rounded-pill fw-bold h5"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    บันทึก
+                </button>
+
+                <% if (currentUser &&  currentUser.isAdmin) { %>
+                <button class="ms-2 d-inline-block text-center btn-song-edit rounded-pill fw-bold h5"
+                onclick="location.href='/song/<%= song._id %>/edit'">
+                    แก้ไข 
+                </button>
+
+                <form id= 'delete-form' action = "/song/<%= song._id %>?_method=DELETE" method ="POST" class="d-inline-block">
+                    <button class="ms-2 d-inline-block text-center btn-song-del rounded-pill fw-bold h5">
+                        ลบ
+                    </button>
+                </form>
+                <% } %> 
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h4 class="modal-title" id="staticBackdropLabel">เพิ่มเข้าเพลย์ลิสต์</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="POST" id="songAddedPlaylist">
+
+                        <div class="mt-1 d-flex flex-rw text-center">
+                            
+                            <% playlist.forEach(function(playlist) { %> 
+                                <div class="text-center">
+                                    <div class="text-decoration-none d-inline-block">
+                                        <div class="playlist-sel">
+                                            <input formaction="/song/<%= song._id %>/playlist/<%= playlist._id %>?_method=PUT"
+                                            type="image" src="<%= playlist.image %>" height="200px" width="200px" class="ms-3" name="playlist[song.id]" value="<%= song._id %>">
+                                        </div>
+                                        <p class="ms-5 mb-5 mt-1 text-secondary h4"><%= playlist.name %> </p>
+                                    </div>
+                                </div>
+                            <% }) %> 
+
+                        </div>
+
+                        <div class="text-center mt-2 mb-3">
+                            <button type="button" class="btn btn-cancle rounded-pill" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container mt-5 mb-5 lyrics">
+        <div class="row m-5">
+            <div class="col-5">
+                <h3 class="fw-bold mt-5">เนื้อเพลง <%= song.title %> </h3>
+                <p class="col-7 mt-5 mb-5" id="lyrics" style="white-space: pre-line"><%= song.lyrics %> </p>
+            </div>
+            <div class="col-1 lyrics-line">
+                
+            </div>
+            <div class="col-5 lyrics-sub">
+                <div class="container">
+                    <div class="mt-5 mb-5">
+                        <h4 class="fw-bold d-inline-block">Song  : </h4> 
+                        <h5 class="d-inline-block"> <%= song.title %> </h5> 
+                    </div>
+                    
+                    <div class="mb-2">
+                        <h4 class="fw-bold d-inline-block">Album  : </h4>
+                        <h5 class="d-inline-block"> <%= song.album.name %> </h5> 
+                    </div>
+
+                    <div class="mb-5">
+                        <h4 class="fw-bold d-inline-block">Track Number  : </h4>
+                        <h5 class="d-inline-block"> <%= song.track %> </h5> 
+                    </div>
+                    
+                    <div>
+                        <h4 class="fw-bold d-inline-block">Artist  : </h4> 
+                        <h5 class="d-inline-block"> <%= song.artist.name %> </h5> 
+                    </div>
+                    
+                    <div class="mb-5">
+                        <h4 class="fw-bold d-inline-block">View  : </h4>
+                        <h5 class="d-inline-block"> <%= song.view %> Views </h5> 
+                    </div>
+                    
+                    <div>
+                        <h4 class="fw-bold d-inline-block">Tag  : </h4>
+                        <h5 class="d-inline-block"> <%= song.genre %> </h5> 
+                    </div>
+
+                    <div>
+                        <p class="display-none song-content"><%= song.content %> </p>
+                    </div>
+                    <div>
+                        <p class="display-none song-title"><%= song.title %> </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<%- include("../partials/footer.ejs") %>

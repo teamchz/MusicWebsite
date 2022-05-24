@@ -1,0 +1,56 @@
+<%- include("../partials/header.ejs") %>
+
+<section>
+    <div class="container-fluid profile-banner mb-4">
+        <div class="d-flex align-items-end ms-5">
+            <div class="col-2">
+                <img src="../images/genre/folk-p.png" alt="cover" height="180px" class="m-4">
+            </div>
+            <div class="col-10 mb-5">
+                <p class="mb-0 h5">เพลย์ลิสต์</p>
+                <h1 class="fw-bold display-1">Folk Music</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="d-flex" style="padding: 50px; padding-bottom: 0px; padding-top: 30px;">
+            <h5 class="col-5 text-secondary">ชื่อเพลง</h5>
+            <h5 class="col-3 text-secondary">ศิลปิน</h5>
+            <h5 class="col-3 text-secondary me-2">จำนวนการฟัง</h5>
+            <h5 class="col-1 text-secondary ms-5">เวลา</h5>
+        </div>
+        <div class="container-fluid"><hr></div>
+    
+    
+        <% song.forEach(function(song, index) { %> 
+            <div class="mb-2" style= " background: #CCD2E4; ">
+                <div class="row">
+                    <div class="col-5 col-3 d-flex align-items-center">
+                        <p class="d-inline-block h5 ms-5 mb-0"><%= index + 1 %> &nbsp&nbsp&nbsp </p>
+                        <img src="<%= song.image %> " alt="song-cover" height="50px" width="50px" class="mt-2 ms-2 mb-2 me-3">
+                        <p class="d-inline-block h5 mb-0 hover-underline" >
+                            <a href="/song/<%= song._id %>" class="text-decoration-none text-dark"><%= song.title %></a> 
+                        </p>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <p class="h5 mb-0 hover-underline">
+                            <a href="/artist/<%= song.artist.id %>" class="text-decoration-none text-dark"><%= song.artist.name %></a>
+                        </p>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <p class="h5 mb-0"><%= song.view %> </p>
+                    </div>
+                    <div class="col-1 d-flex align-items-center">
+                        <p class="h5 mb-0">3:12 </p>
+                    </div>
+                </div>
+            </div>
+        <% }) %> 
+    </div>
+</section>
+
+
+<%- include("../partials/footer.ejs") %>

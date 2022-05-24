@@ -1,0 +1,65 @@
+<%- include("../partials/header.ejs") %>
+
+<section>
+    <div class="container-fluid profile-banner mb-5">
+        <div class="d-flex align-items-end ms-5">
+            <div class="col-2">
+                <img src="<%= user.profileImage %>" alt="userProfile" height="180px" class="m-4 rounded-circle">
+            </div>
+            <div class="col-10 mb-5">
+                <p class="mb-0">โปรไฟล์</p>
+                <h1 class="fw-bold display-1"><%= user.username %> </h1>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+
+    <!-- <div class="d-flex mb-5">
+        <div class="col-6 container profile-card me-5">
+
+        </div>
+        <div class="col-6 container profile-card ms-5">
+
+        </div>
+    </div> -->
+
+    <div class="d-flex">
+        <div class="col-11 container profile-desc">
+            <h1 class="fw-bold">ข้อมูลบัญชีผู้ใช้</h2>
+            <div class="d-flex justify-content-between">
+                <h3 class="d-inline mt-2">โปรไฟล์</h4>
+                <p class="d-inline text-secondary mt-2">แก้ไขโปรไฟล์</p>
+            </div>
+            
+            <div class="d-flex mt-4 ms-3">
+                <p class="col-6 h4 text-secondary">ชื่อที่ใช้แสดง</p>
+                <p class="col-6 h4"><%= user.displayName %></p>
+            </div>
+            <hr>
+
+            <div class="d-flex mt-4 ms-3">
+                <p class="col-6 h4 text-secondary">อีเมล</p>
+                <p class="col-6 h4"><%= user.email %></p>
+            </div>
+            <hr>
+
+            <div class="d-flex mt-4 ms-3">
+                <p class="col-6 h4 text-secondary">ประเทศหรือภูมิภาค</p>
+                <p class="col-6 h4">ไทย</p>
+            </div>
+            <hr>
+            
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="justify-content-end d-flex align-bottom mb-5">
+            <a href="/logout" class="btn btn-logout rounded-pill">ออกจากระบบ</a>
+        </div>
+    </div>
+
+</section>
+
+<%- include("../partials/footer.ejs") %>

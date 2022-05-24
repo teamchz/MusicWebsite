@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5e2d5fbe38.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/flashjs-master/dist/flash.css">
+    <script src="/flashjs-master/dist/flash.min.js"></script>
+    <title>MusicWebsite</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-purple sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MusicWebsite</a>            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li>
+                        <div class="input-group w-100 rounded-pill">
+                            <span class="input-group-text" id="basic-addon1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                                </svg>
+                            </span>
+                            <form onsubmit="get_action(this)" method="get">
+                                <input type="text" class="form-control d-flex" style="padding-right: 400px;" placeholder="Browse some music!" aria-label="Input group example" aria-describedby="basic-addon1" id="search">
+                            </form>
+                        </div>                    
+                    </li>
+                </ul>
+                <% if (!currentUser) { %>
+                <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-purple rounded-pill text-white me-2" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light rounded-pill" href="/register">Register</a>
+                    </li>
+                </ul>
+                </ul>
+                    <% } else { %>
+                <ul class="navbar-nav me-5 mb-2 mb-lg-0">        
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <div class="vl"></div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/<%= currentUser._id %>"> <%= currentUser.username %></a>
+                    </li>
+                    <li>
+                        <a href="/user/<%= currentUser._id %>"><img src="<%= currentUser.profileImage %>" alt="userProfile" height="40px" class="rounded-circle ms-3"></a>
+                    </li>
+                </ul>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+      </nav>
+      
+      <% if(error && error.length>0 && !currentUser){ %>
+        <script>
+            new window.FlashMessage('กรุณาเข้าสู่ระบบ!', 'warning', {progress: true, timeout:3000});
+        </script>
+      <% } %>
+
+      <% if(success && success.length>0 && currentUser){ %>
+        <script>
+            new window.FlashMessage('เข้าสู่ระบบสำเร็จ!', 'success', {progress: true, timeout:3000});
+        </script>
+      <% } %>
+
+      <% if(success && success.length>0 && !currentUser){ %>
+        <script>
+            new window.FlashMessage('ออกจากระบบสำเร็จ!', 'success', {progress: true, timeout:3000});
+        </script>
+      <% } %>
+
+    <div class="row g-0">
+        <div class="col-2">
+            <div class="d-flex flex-column flex-shrink-0 p-3 sidebar h-100 overflow-hidden position-fixed col-2">
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item d-flex ms-3">
+                        <a href="/">
+                            <img src="../images/home-icon.png" alt="fav-icon" height="30px" class="mt-1">
+                        </a>
+                        <a href="/" class="nav-link link-dark h5" aria-current="page">
+                        Home
+                        </a>
+                    </li>
+                    <li class="d-flex ms-3">
+                        <a href="/chart">
+                            <img src="../images/chart-icon.png" alt="fav-icon" height="30px" class="mt-1">
+                        </a>
+                        <a href="/chart" class="nav-link link-dark h5">
+                        TopList
+                        </a>
+                    </li>
+                    <li class="d-flex ms-3">
+                        <a href="/album">
+                            <img src="../images/album-icon.png" alt="fav-icon" height="30px" class="mt-1">
+                        </a>
+                        <a href="/album" class="nav-link link-dark h5">
+                        Album
+                        </a>
+                    </li>
+                    <hr>
+                    <li class="d-flex ms-3">
+                        <img src="../images/playlist-icon.png" alt="fav-icon" height="30px" class="mt-1">
+                        <% if(!currentUser){ %>
+                            <p class="nav-link link-dark h5" style="cursor: pointer;" id="playlist">Playlist</p>
+                            <script>
+                                function playlist() {
+                                    new window.FlashMessage('กรุณาเข้าสู่ระบบ!', 'warning', {progress: true, timeout:3000});
+                                }
+                                var clickPlaylist = document.getElementById('playlist')
+                                clickPlaylist.addEventListener('click', playlist)
+                            </script>
+                        <% } %>
+
+                        <% if(currentUser) { %> 
+                        <a href="/playlist" class="nav-link link-dark h5">
+                        Playlist
+                        </a>
+                        <% } %> 
+                    </li>
+                    <li class="d-flex ms-3">
+                        <a href="/artist">
+                            <img src="../images/artist-icon.png" alt="fav-icon" height="30px" class="mt-1">
+                        </a>
+                        <a href="/artist" class="nav-link link-dark h5">
+                        Artist
+                        </a>
+                    </li>
+                    <li class="d-flex ms-3">
+                        <a href="/genre">
+                            <img src="../images/genre-icon.png" alt="fav-icon" height="30px" class="mt-1">
+                        </a>
+                        <a href="/genre" class="nav-link link-dark h5">
+                        Genre
+                        </a>
+                    </li>
+                    <hr>
+                    <% if (currentUser &&  currentUser.isAdmin) { %>
+                    <li class="d-flex ms-3">
+                        <a href="/song/new" class="nav-link link-dark h5">
+                        Add New Songs
+                        </a>
+                    </li>
+                    <li class="d-flex ms-3">
+                        <a href="/artist/new" class="nav-link link-dark h5">
+                        Add New Artist
+                        </a>
+                    </li>
+                    <li class="d-flex ms-3">
+                        <a href="/album/new" class="nav-link link-dark h5">
+                        Add New Album
+                        </a>
+                    </li>
+                    <% } %> 
+                </ul>
+                <hr>
+                <div class="dropdown">
+                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>mdo</strong>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function get_action(form) {
+            form.action = "/browse/" + document.getElementById("search").value
+        }
+    </script>
+    <script>var All_song_playlist = []</script>
+    <main class="col-10">

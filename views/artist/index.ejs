@@ -1,0 +1,25 @@
+<%- include("../partials/header.ejs") %>
+
+<section>
+    <div class="container mt-5">
+        <h2>ศิลปิน</h2>
+
+        <div class="text-center d-flex flex-rw">
+
+            <% artist.forEach(function(artist) { %>
+
+                <div class="card me-3 ms-3 mt-2">
+                    <a href="/artist/<%= artist._id %>">
+                        <img src="<%= artist.profileImage %> " alt="song-cover" width="80%" class="m-auto mt-4 mb-3 rounded-circle">
+                    </a>
+                    <a href="/artist/<%= artist._id %>" class="text-center mb-0 h4 text-decoration-none text-dark"><%= artist.name %></a>
+                    <h5 class="text-secondary">ศิลปิน</h5>
+                </div>
+
+            <% })  %>
+        </div>
+    </div>
+</section>
+
+
+<%- include("../partials/footer.ejs") %>
